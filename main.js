@@ -12,44 +12,24 @@ const POWER = (n)=>(m)=>(m(MULTIPLY(n))(ONE));
 const DECREMENT = (n)=>(p)=>(x)=>n((g)=>(h)=>h(g(p)))((y)=>x)((y)=>y);
 const SUBTRACT = (n)=>(m)=>(m(DECREMENT)(n));
 
-// const DECREMENT = function (n) {
-//     return function(p){
-//         return function(x){
-//             return n(function(g){
-//                 return function(h) {
-//                     return h(g(p))
-//                 }
-//             })(function(y){
-//                 return x;
-//             })(function(y){
-//                 return y;
-//             })
-//         }
-//     }
-// }
+const TRUE = (x)=>(y)=>x;
+const FALSE = (x)=>(y)=>y;
+const IF = (b)=>b;
 
+const AND = (a)=>(b)=>a(b)(a);
+const OR = (a)=>(b)=>a(a)(b);
+const NOT = (c)=>(a)=>(b)=>c(b)(a); //Applicative Order
+// const NOT = (p)=>p(FALSE)(TRUE);    //Normal Order
+const XOR = (a)=>(b)=>a(NOT(b))(b);
+
+function to_boolean(b) {
+    return b(true)(false)
+}
 
 function to_integer(n) {
     return n((x)=>x+1)(0)
 }
 
-console.log("  ++0 \t==\t "+to_integer(INCREMENT(ZERO)));
-console.log("  ++1 \t==\t "+to_integer(INCREMENT(ONE)));
-console.log("  ++2 \t==\t "+to_integer(INCREMENT(TWO)));
-console.log("  ++3 \t==\t "+to_integer(INCREMENT(THREE)));
 
-console.log("  0+3 \t==\t "+to_integer(ADD(ZERO)(THREE)));
-console.log("  1+2 \t==\t "+to_integer(ADD(ONE)(TWO)));
-console.log("  2*3 \t==\t "+to_integer(MULTIPLY(TWO)(THREE)));
-console.log("  3^2 \t==\t "+to_integer(POWER(THREE)(TWO)));
-
-console.log("  --0 \t==\t "+to_integer(DECREMENT(ZERO))+" *");
-console.log("  --1 \t==\t "+to_integer(DECREMENT(ONE)));
-console.log("  --2 \t==\t "+to_integer(DECREMENT(TWO)));
-console.log("  --3 \t==\t "+to_integer(DECREMENT(THREE)));
-
-console.log("  5-3 \t==\t "+to_integer(SUBTRACT(FIVE)(THREE)));
-console.log("  3-5 \t==\t "+to_integer(SUBTRACT(THREE)(FIVE))+" *");
-
-console.log("\n* decrement(0) = 0;");
-
+console.log(to_boolean(NOT(TRUE)));
+console.log(to_boolean(FALSE));
