@@ -22,6 +22,13 @@ const NOT = (c)=>(a)=>(b)=>c(b)(a); //Applicative Order
 // const NOT = (p)=>p(FALSE)(TRUE);    //Normal Order
 const XOR = (a)=>(b)=>a(NOT(b))(b);
 
+const IS_ZERO = (n)=> n((x)=>FALSE)(TRUE);
+
+const LESS_THAN_OR_EQUAL = (m)=>(n)=>IS_ZERO(SUBTRACT(m)(n))
+const GREATER_THAN = (m)=>(n)=>NOT(IS_ZERO(SUBTRACT(m)(n)))
+const LESS_THAN = (m)=>(n)=>NOT(IS_ZERO(SUBTRACT(n)(m)))
+const GREATER_THAN_OR_EQUAL = (m)=>(n)=>(IS_ZERO(SUBTRACT(n)(m)))
+
 function to_boolean(b) {
     return b(true)(false)
 }
@@ -30,6 +37,21 @@ function to_integer(n) {
     return n((x)=>x+1)(0)
 }
 
+console.log(to_boolean(IS_ZERO(ZERO)));
+console.log(to_boolean(IS_ZERO(ONE)));
+console.log(to_boolean(IS_ZERO(TWO)));
+console.log(to_boolean(IS_ZERO(THREE)));
 
-console.log(to_boolean(NOT(TRUE)));
-console.log(to_boolean(FALSE));
+console.log(to_boolean(LESS_THAN_OR_EQUAL(ONE)(ONE)));
+console.log(to_boolean(LESS_THAN_OR_EQUAL(THREE)(ONE)));
+console.log(to_boolean(LESS_THAN_OR_EQUAL(TWO)(THREE)));
+
+console.log(to_boolean(LESS_THAN(TWO)(THREE)));
+console.log(to_boolean(LESS_THAN_OR_EQUAL(TWO)(THREE)));
+console.log(to_boolean(GREATER_THAN(TWO)(THREE)));
+console.log(to_boolean(GREATER_THAN_OR_EQUAL(TWO)(THREE)));
+
+console.log(to_boolean(LESS_THAN(FIVE)(THREE)));
+console.log(to_boolean(LESS_THAN_OR_EQUAL(FIVE)(THREE)));
+console.log(to_boolean(GREATER_THAN(FIVE)(THREE)));
+console.log(to_boolean(GREATER_THAN_OR_EQUAL(FIVE)(THREE)));
