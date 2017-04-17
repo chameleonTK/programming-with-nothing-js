@@ -37,21 +37,40 @@ function to_integer(n) {
     return n((x)=>x+1)(0)
 }
 
-console.log(to_boolean(IS_ZERO(ZERO)));
-console.log(to_boolean(IS_ZERO(ONE)));
-console.log(to_boolean(IS_ZERO(TWO)));
-console.log(to_boolean(IS_ZERO(THREE)));
+module.exports = {
+    "numbers":{
+        ZERO:ZERO,
+        ONE:ONE,
+        TWO:TWO,
+        THREE:THREE,
+        FIVE:FIVE,
+    },
+    "math_op":{
+        INCREMENT:INCREMENT,
+        ADD:ADD,
+        MULTIPLY:MULTIPLY,
+        POWER:POWER,
 
-console.log(to_boolean(LESS_THAN_OR_EQUAL(ONE)(ONE)));
-console.log(to_boolean(LESS_THAN_OR_EQUAL(THREE)(ONE)));
-console.log(to_boolean(LESS_THAN_OR_EQUAL(TWO)(THREE)));
-
-console.log(to_boolean(LESS_THAN(TWO)(THREE)));
-console.log(to_boolean(LESS_THAN_OR_EQUAL(TWO)(THREE)));
-console.log(to_boolean(GREATER_THAN(TWO)(THREE)));
-console.log(to_boolean(GREATER_THAN_OR_EQUAL(TWO)(THREE)));
-
-console.log(to_boolean(LESS_THAN(FIVE)(THREE)));
-console.log(to_boolean(LESS_THAN_OR_EQUAL(FIVE)(THREE)));
-console.log(to_boolean(GREATER_THAN(FIVE)(THREE)));
-console.log(to_boolean(GREATER_THAN_OR_EQUAL(FIVE)(THREE)));
+        DECREMENT:DECREMENT,
+        SUBTRACT:SUBTRACT,
+    },
+    "boolean":{
+        TRUE:TRUE,
+        FALSE:FALSE,
+    },
+    "logic_op":{
+        AND:AND,
+        OR:OR,
+        NOT:NOT,
+        XOR:XOR,    
+    },
+    "comp_op":{
+        IS_ZERO:IS_ZERO,
+        LESS_THAN_OR_EQUAL:LESS_THAN_OR_EQUAL,
+        GREATER_THAN:GREATER_THAN,
+        LESS_THAN:LESS_THAN,
+        GREATER_THAN_OR_EQUAL:GREATER_THAN_OR_EQUAL,
+    },
+    to_boolean:to_boolean,
+    to_integer:to_integer,
+}
