@@ -37,12 +37,32 @@ const Z = f=>(x=>f(y=>x(x)(y)))(x=>f(y=>x(x)(y)))
 const MODULO = Z(f=>m=>n=>IF(LESS_THAN_OR_EQUAL(n)(m))(x=>f(SUBTRACT(m)(n))(n)(x))(m))
 const DIVIDE = Z(f=>m=>n=>IF(LESS_THAN_OR_EQUAL(n)(m))(x=>INCREMENT(f(SUBTRACT(m)(n))(n))(x))(ZERO))
 
+const PAIR = x=>y=>f=>f(x)(y);
+const LEFT = p=>p(x=>y=>x)
+const RIGHT = p=>p(x=>y=>y)
+
+const EMPTY = PAIR(TRUE)(TRUE);
+const IS_EMPTY  = LEFT;
+
+const UNSHIFT = l=>x=>PAIR(FALSE)(PAIR(x)(l))
+const FIRST = l=>LEFT(RIGHT(l))
+const REST = l=>RIGHT(RIGHT(l))
+
 function to_boolean(b) {
     return b(true)(false)
 }
 
 function to_integer(n) {
     return n(x=>x+1)(0)
+}
+
+function to_array(l){
+    var arr = [];
+    while(!to_boolean(IS_EMPTY(l))) {
+        arr.push(FIRST(l))
+        l = REST(l);
+    }
+    return arr
 }
 
 module.exports = {
@@ -82,6 +102,21 @@ module.exports = {
         LESS_THAN:LESS_THAN,
         GREATER_THAN_OR_EQUAL:GREATER_THAN_OR_EQUAL,
     },
+
+    "list":{
+        "PAIR":PAIR,
+        "LEFT":LEFT,
+        "RIGHT":RIGHT,
+
+        "EMPTY":EMPTY,
+        "IS_EMPTY":IS_EMPTY,
+
+        "UNSHIFT":UNSHIFT,
+        "FIRST":FIRST,
+        "REST":REST,
+    },
+
     to_boolean:to_boolean,
     to_integer:to_integer,
+    to_array:to_array,
 }

@@ -7,9 +7,11 @@ describe("CodeWithNothing", function() {
   var boolean = ourCode.boolean;
   var logic_op = ourCode.logic_op;
   var comp_op = ourCode.comp_op;
+  var list = ourCode.list;
 
   var to_boolean = ourCode.to_boolean;
   var to_integer = ourCode.to_integer;
+  var to_array = ourCode.to_array;
 
   describe("When we call our numbers", function() {
     it("should be able to convert to native number", function() {
@@ -101,6 +103,38 @@ describe("CodeWithNothing", function() {
 
       expect(to_boolean(comp_op.GREATER_THAN(numbers.THREE)(numbers.FIVE))).toBeFalsy();
       expect(to_boolean(comp_op.GREATER_THAN(numbers.FIVE)(numbers.THREE))).toBeTruthy();
+    });
+  });
+
+
+  describe("When we call our list", function() {
+    var testList1 = list.UNSHIFT(list.EMPTY)(numbers.ONE)
+    var testList2 = list.UNSHIFT(testList1)(math_op.MULTIPLY(numbers.TWO)(numbers.FIVE))
+    var testList3 = list.UNSHIFT(testList2)(numbers.THREE)
+
+    var arr1 = to_array(testList1).map(item=>to_integer(item))
+    var arr2 = to_array(testList2).map(item=>to_integer(item))
+    var arr3 = to_array(testList3).map(item=>to_integer(item))
+
+    it("should be able to define list", function() {
+      expect(to_boolean(list.IS_EMPTY(list.EMPTY))).toBeTruthy();
+      expect(to_boolean(list.IS_EMPTY(testList1))).toBeFalsy();
+      expect(to_boolean(list.IS_EMPTY(testList2))).toBeFalsy();
+      expect(to_boolean(list.IS_EMPTY(testList3))).toBeFalsy();
+    });
+
+    it("should be able to append", function() {
+      expect(arr1).toEqual([1]);
+      expect(arr2).toEqual([10, 1]);
+      expect(arr3).toEqual([3, 10, 1]);
+
+    });
+
+    it("should be able to seek", function() {
+
+      expect(to_integer(list.FIRST(testList3))).toEqual(3);
+      expect(to_integer(list.FIRST(list.REST(testList2)))).toEqual(1);
+
     });
   });
 
