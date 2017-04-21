@@ -45,6 +45,8 @@ const EMPTY = PAIR(TRUE)(TRUE);
 const IS_EMPTY  = LEFT;
 
 const UNSHIFT = l=>x=>PAIR(FALSE)(PAIR(x)(l))
+const PUSH = l=>x=>FOLD(l)(UNSHIFT(EMPTY)(x))(UNSHIFT)
+
 const FIRST = l=>LEFT(RIGHT(l))
 const REST = l=>RIGHT(RIGHT(l))
 
@@ -56,19 +58,42 @@ const MAP = l=>f=>FOLD(l)(EMPTY)(k=>i=>UNSHIFT(k)(f(i)))
 const TEN = MULTIPLY(TWO)(FIVE)
 const HUNDRED = MULTIPLY(TEN)(TEN)
 
+const NOT_PRIME=RANGE(TEN)(DECREMENT(ADD(TEN)(TEN)))
+
+// const TO_DIGITS = N=>{
+//     return PUSH(
+//         IF(LESS_THAN(N)(TEN))
+//         (EMPTY)
+//         (x=>TO_DIGITS(DIVIDE(N)(TEN))(x)))
+//     (MODULO(N)(TEN))
+// }
+
+const TO_DIGITS = Z(f=>N=>{
+    return PUSH(
+        IF(LESS_THAN(N)(TEN))
+        (EMPTY)
+        (x=>f(DIVIDE(N)(TEN))(x)))
+    (MODULO(N)(TEN))
+})
+
 const isPrime = (N)=>{
-    return FOLD(RANGE(TWO)(N))(TRUE)(acc=>n=>{
-        return IF(IS_ZERO(MODULO(N)(n)))(FALSE)(acc)
+    return FOLD(RANGE(TWO)(N))(TO_DIGITS(N))(acc=>n=>{
+        return IF(IS_ZERO(MODULO(N)(n)))(NOT_PRIME)(acc)
     })
 }
 
-// to_array(MAP(RANGE(TWO)(HUNDRED))(n=>isPrime(n)))
-// .forEach((b,i)=>{
-//     if (to_boolean(b)){
-//         console.log(i+2);
-//     }
-// })
+to_array(MAP(RANGE(TWO)(HUNDRED))(n=>isPrime(n)))
+.forEach((b,i)=>{
+    console.log(to_string(b));
+})
 
+function to_char(c) {
+  return '0123456789NOT PRIME'.slice(to_integer(c), to_integer(c)+1)
+}
+
+function to_string(str) {
+  return to_array(str).map(s=>to_char(s)).join("")
+}
 
 function to_boolean(b) {
     return b(true)(false)
@@ -94,6 +119,8 @@ module.exports = {
         TWO:TWO,
         THREE:THREE,
         FIVE:FIVE,
+        TEN:TEN,
+        HUNDRED:HUNDRED,
     },
     "math_op":{
         INCREMENT:INCREMENT,
@@ -142,7 +169,9 @@ module.exports = {
         "MAP":MAP
     },
 
+    isPrime:isPrime,
     to_boolean:to_boolean,
     to_integer:to_integer,
     to_array:to_array,
+    to_string:to_string,
 }

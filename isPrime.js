@@ -12,7 +12,7 @@ function range(start, target){
 function isPrime(n){
   return range(2, n).reduce(function(acc, val){
     if (n%val==0){
-      return "NOT Prime";
+      return "NOT PRIME";
     } else {
       return acc
     }

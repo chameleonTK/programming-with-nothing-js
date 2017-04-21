@@ -12,7 +12,7 @@ describe("CodeWithNothing", function() {
   var to_boolean = ourCode.to_boolean;
   var to_integer = ourCode.to_integer;
   var to_array = ourCode.to_array;
-
+  var to_string = ourCode.to_string;
   describe("When we call our numbers", function() {
     it("should be able to convert to native number", function() {
       expect(to_integer(numbers.ZERO)).toEqual(0);
@@ -150,6 +150,16 @@ describe("CodeWithNothing", function() {
       expect(to_array(list.MAP(list.RANGE(numbers.ONE)(numbers.FIVE))(a=>math_op.POWER(a)(numbers.TWO))).map(i=>to_integer(i))).toEqual([1, 4, 9, 16]);
     });
 
+  });
+
+
+  describe("When we call our LAST BOSS, isPrime", function() {
+    it("should return right value", function() {
+      to_array(list.MAP(list.RANGE(numbers.TWO)(numbers.HUNDRED))(n=>ourCode.isPrime(n)))
+      .forEach((b,i)=>{
+          expect(to_string(b)).toEqual(targetFunc.isPrime(i+2));
+      })
+    });
   });
 
 });
