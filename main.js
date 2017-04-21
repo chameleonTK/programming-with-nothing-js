@@ -48,6 +48,11 @@ const UNSHIFT = l=>x=>PAIR(FALSE)(PAIR(x)(l))
 const FIRST = l=>LEFT(RIGHT(l))
 const REST = l=>RIGHT(RIGHT(l))
 
+const RANGE = Z(f=>m=>n=>IF(LESS_THAN(m)(n))(x=>UNSHIFT(f(INCREMENT(m))(n))(m)(x))(EMPTY))
+
+const FOLD = Z(f=>l=>x=>g=>IF(IS_EMPTY(l))(x)(y=> g(f(REST(l))(x)(g))(FIRST(l))(y)))
+const MAP = l=>f=>FOLD(l)(EMPTY)(k=>i=>UNSHIFT(k)(f(i)))
+
 function to_boolean(b) {
     return b(true)(false)
 }
@@ -114,6 +119,10 @@ module.exports = {
         "UNSHIFT":UNSHIFT,
         "FIRST":FIRST,
         "REST":REST,
+
+        "RANGE":RANGE,
+        "FOLD":FOLD,
+        "MAP":MAP
     },
 
     to_boolean:to_boolean,

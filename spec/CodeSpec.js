@@ -136,6 +136,20 @@ describe("CodeWithNothing", function() {
       expect(to_integer(list.FIRST(list.REST(testList2)))).toEqual(1);
 
     });
+
+    it("should be convicing range", function() {
+      expect(to_array(list.RANGE(numbers.TWO)(numbers.FIVE)).map(item=>to_integer(item))).toEqual([2, 3, 4]);
+      expect(to_array(list.RANGE(numbers.TWO)(math_op.MULTIPLY(numbers.TWO)(numbers.FIVE))).map(item=>to_integer(item))).toEqual([2, 3, 4, 5, 6, 7, 8, 9]);
+    });
+
+    it("should return right fold/map", function() {
+      expect(to_integer(list.FOLD(list.RANGE(numbers.ONE)(numbers.FIVE))(numbers.ZERO)(math_op.ADD))).toEqual(10);
+      expect(to_integer(list.FOLD(list.RANGE(numbers.ONE)(numbers.FIVE))(numbers.ONE)(math_op.MULTIPLY))).toEqual(24);
+
+      expect(to_array(list.MAP(list.RANGE(numbers.ONE)(numbers.FIVE))(math_op.POWER(numbers.TWO))).map(i=>to_integer(i))).toEqual([2, 4, 8, 16]);
+      expect(to_array(list.MAP(list.RANGE(numbers.ONE)(numbers.FIVE))(a=>math_op.POWER(a)(numbers.TWO))).map(i=>to_integer(i))).toEqual([1, 4, 9, 16]);
+    });
+
   });
 
 });
