@@ -155,7 +155,7 @@ describe("CodeWithNothing", function() {
 
   describe("When we call our LAST BOSS, isPrime", function() {
     it("should return right value", function() {
-      to_array(list.MAP(list.RANGE(numbers.TWO)(numbers.HUNDRED))(n=>ourCode.isPrime(n)))
+      to_array(list.MAP(list.RANGE(numbers.TWO)(math_op.ADD(numbers.TEN)(numbers.TEN)))(n=>ourCode.isPrime(n)))
       .forEach((b,i)=>{
           expect(to_string(b)).toEqual(targetFunc.isPrime(i+2));
       })
