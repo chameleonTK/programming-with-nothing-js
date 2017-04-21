@@ -45,6 +45,15 @@ describe("CodeWithNothing", function() {
       
     });
   });
+
+  describe("When we call divide", function() {
+    it("should return correct value", function() {
+      expect(to_integer(math_op.DIVIDE(numbers.TWO)(numbers.THREE))).toEqual(0);
+      expect(to_integer(math_op.DIVIDE(numbers.THREE)(numbers.TWO))).toEqual(1);
+      expect(to_integer(math_op.DIVIDE(math_op.POWER(numbers.THREE)(numbers.THREE))(math_op.ADD(numbers.TWO)(numbers.THREE)))).toEqual(5);
+      
+    });
+  });
   describe("When we call our booleans", function() {
     it("should be able to convert to native boolean", function() {
       expect(to_boolean(boolean.FALSE)).toBeFalsy();

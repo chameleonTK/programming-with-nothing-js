@@ -35,7 +35,7 @@ const Z = f=>(x=>f(y=>x(x)(y)))(x=>f(y=>x(x)(y)))
 
 // const MODULO = (m)=>(n)=>IF(LESS_THAN_OR_EQUAL(n)(m))((x)=>MODULO(SUBTRACT(m)(n))(n)(x))(m); // cheating
 const MODULO = Z(f=>m=>n=>IF(LESS_THAN_OR_EQUAL(n)(m))(x=>f(SUBTRACT(m)(n))(n)(x))(m))
-            
+const DIVIDE = Z(f=>m=>n=>IF(LESS_THAN_OR_EQUAL(n)(m))(x=>INCREMENT(f(SUBTRACT(m)(n))(n))(x))(ZERO))
 
 function to_boolean(b) {
     return b(true)(false)
@@ -61,7 +61,9 @@ module.exports = {
 
         DECREMENT:DECREMENT,
         SUBTRACT:SUBTRACT,
+
         MODULO:MODULO,
+        DIVIDE:DIVIDE
     },
     "boolean":{
         TRUE:TRUE,
