@@ -28,7 +28,7 @@ spec\CodeSpec.js
 
 # More Detail
 
-There are my nine articles (in Thai) and one original article (in English) which will explain for each detail in deeper detail.
+There are my nine articles (in Thai) and one original article (in English) which will explain in more detail.
 
 
  * [EP1 : Introduction](http://wp.curve.in.th/programming-with-nothing-i) 
