@@ -1,5 +1,7 @@
 describe("CodeWithNothing", function() {
   var ourCode = require('../main');
+  var targetFunc = require('../isPrime');
+
   var numbers = ourCode.numbers;
   var math_op = ourCode.math_op;
   var boolean = ourCode.boolean;

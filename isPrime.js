@@ -12,15 +12,20 @@ function range(start, target){
 function isPrime(n){
   return range(2, n).reduce(function(acc, val){
     if (n%val==0){
-      return false;
+      return "NOT Prime";
     } else {
       return acc
     }
-  }, true)
+  }, n+"")
 }
 
-range(2,100).forEach(function(n){
-  if (isPrime(n)){
-    console.log(n);
-  }
-})
+// range(2,100).forEach(function(n){
+//   if (isPrime(n)!="NOT Prime"){
+//     console.log(n);
+//   }
+// })
+
+
+module.exports = {
+    "isPrime":isPrime
+}
