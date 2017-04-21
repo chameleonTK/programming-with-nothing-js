@@ -53,6 +53,23 @@ const RANGE = Z(f=>m=>n=>IF(LESS_THAN(m)(n))(x=>UNSHIFT(f(INCREMENT(m))(n))(m)(x
 const FOLD = Z(f=>l=>x=>g=>IF(IS_EMPTY(l))(x)(y=> g(f(REST(l))(x)(g))(FIRST(l))(y)))
 const MAP = l=>f=>FOLD(l)(EMPTY)(k=>i=>UNSHIFT(k)(f(i)))
 
+const TEN = MULTIPLY(TWO)(FIVE)
+const HUNDRED = MULTIPLY(TEN)(TEN)
+
+const isPrime = (N)=>{
+    return FOLD(RANGE(TWO)(N))(TRUE)(acc=>n=>{
+        return IF(IS_ZERO(MODULO(N)(n)))(FALSE)(acc)
+    })
+}
+
+// to_array(MAP(RANGE(TWO)(HUNDRED))(n=>isPrime(n)))
+// .forEach((b,i)=>{
+//     if (to_boolean(b)){
+//         console.log(i+2);
+//     }
+// })
+
+
 function to_boolean(b) {
     return b(true)(false)
 }
