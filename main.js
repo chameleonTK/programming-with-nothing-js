@@ -29,6 +29,14 @@ const GREATER_THAN = m=>n=>NOT(IS_ZERO(SUBTRACT(m)(n)))
 const LESS_THAN = m=>n=>NOT(IS_ZERO(SUBTRACT(n)(m)))
 const GREATER_THAN_OR_EQUAL = m=>n=>(IS_ZERO(SUBTRACT(n)(m)))
 
+
+const Y = f=>(x=>f(x(x)))(x=>f(x(x)))
+const Z = f=>(x=>f(y=>x(x)(y)))(x=>f(y=>x(x)(y)))
+
+// const MODULO = (m)=>(n)=>IF(LESS_THAN_OR_EQUAL(n)(m))((x)=>MODULO(SUBTRACT(m)(n))(n)(x))(m); // cheating
+const MODULO = Z(f=>m=>n=>IF(LESS_THAN_OR_EQUAL(n)(m))(x=>f(SUBTRACT(m)(n))(n)(x))(m))
+            
+
 function to_boolean(b) {
     return b(true)(false)
 }
@@ -53,6 +61,7 @@ module.exports = {
 
         DECREMENT:DECREMENT,
         SUBTRACT:SUBTRACT,
+        MODULO:MODULO,
     },
     "boolean":{
         TRUE:TRUE,

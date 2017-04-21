@@ -36,6 +36,15 @@ describe("CodeWithNothing", function() {
     });
   });
 
+  
+  describe("When we call modulo", function() {
+    it("should return correct value", function() {
+      expect(to_integer(math_op.MODULO(numbers.TWO)(numbers.THREE))).toEqual(2);
+      expect(to_integer(math_op.MODULO(numbers.THREE)(numbers.TWO))).toEqual(1);
+      expect(to_integer(math_op.MODULO(math_op.POWER(numbers.THREE)(numbers.THREE))(math_op.ADD(numbers.TWO)(numbers.THREE)))).toEqual(2);
+      
+    });
+  });
   describe("When we call our booleans", function() {
     it("should be able to convert to native boolean", function() {
       expect(to_boolean(boolean.FALSE)).toBeFalsy();
